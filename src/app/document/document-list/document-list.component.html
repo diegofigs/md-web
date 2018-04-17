@@ -1,0 +1,14 @@
+<mat-list>
+  <mat-list-item>
+    <span>Document List</span>
+    <button mat-icon-button color="primary">
+      <mat-icon (click)="showCreateDialog()">add</mat-icon>
+    </button>
+  </mat-list-item>
+  <mat-list-item>Sample 1</mat-list-item>
+  <mat-list-item>Sample 2</mat-list-item>
+  <mat-list-item>Sample 3</mat-list-item>
+  <mat-list-item *ngFor="let doc of documents">
+    {{ doc.name }}
+  </mat-list-item>
+</mat-list>
