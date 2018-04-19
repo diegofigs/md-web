@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -11,6 +12,12 @@ import { AppComponent } from './app.component';
 import { DocumentModule } from './document/document.module';
 import { ServicesModule } from './services/services.module';
 
+
+const appRoutes: Routes = [
+  { path: 'documents', component: AppComponent },
+  { path: '',   redirectTo: '/documents', pathMatch: 'full' },
+
+];
 
 @NgModule({
   declarations: [
@@ -25,6 +32,9 @@ import { ServicesModule } from './services/services.module';
     MatGridListModule,
     MatSidenavModule,
     DocumentModule,
+    RouterModule.forRoot(
+      appRoutes,
+    ),
     ServicesModule
   ],
   providers: [],
