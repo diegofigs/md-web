@@ -1,13 +1,14 @@
 <h1 mat-dialog-title>Document Creation</h1>
 <div mat-dialog-content>
-  <span>What will be the name of the document?</span>
   <form>
     <mat-form-field>
-      <input matInput type="text" name="name" [(ngModel)]="data.name">
+      <mat-label>Name</mat-label>
+      <input title="Name" matInput name="name" type="text" [formControl]="name" required>
+      <mat-error *ngIf="name.invalid">Name is required</mat-error>
     </mat-form-field>
   </form>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+  <button mat-button [disabled]="name.invalid" [mat-dialog-close]="name.value" cdkFocusInitial>Ok</button>
 </div>
