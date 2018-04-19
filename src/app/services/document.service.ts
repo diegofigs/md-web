@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/do';
 
 @Injectable()
 export class DocumentService {
@@ -17,7 +18,8 @@ export class DocumentService {
   }
 
   createDocument(document) {
-    return this.httpClient.post(`${this.api}/${this.suffix}`, document);
+    return this.httpClient.post(`${this.api}/${this.suffix}`, document)
+      .do(() => this.documents = this.getDocuments());
   }
 
 }
