@@ -1,1 +1,9 @@
 <h2>Document Editor</h2>
+<mat-form-field>
+  <input matInput placeholder="Name of Document" [(ngModel)]="selectedDocument.name">
+</mat-form-field>
+<textarea matInput placeholder="Place your markdown here"
+          matTextareaAutosize
+          matAutosizeMinRows="4"
+          matAutosizeMaxRows="16"
+          [(ngModel)]="selectedDocument.contents"></textarea>

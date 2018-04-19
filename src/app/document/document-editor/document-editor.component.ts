@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import 'rxjs/add/observable/from';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'app-document-editor',
@@ -7,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocumentEditorComponent implements OnInit {
 
-  constructor() { }
+  @Input('selectedDocument') selectedDocument: any;
+  constructor() {}
 
   ngOnInit() {
   }
