@@ -1,19 +1,15 @@
-<mat-sidenav-container fullscreen>
-  <mat-sidenav mode="side" opened>
-    <mat-toolbar color="primary">
-      <h1>{{ title }}</h1>
-    </mat-toolbar>
-    <app-document-list></app-document-list>
+<mat-toolbar color="primary">{{ title }}</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened class="mat-elevation-z2">
+    <app-document-list (onSelect)="passDocumentToEditor($event)"></app-document-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary"></mat-toolbar>
-    <mat-grid-list [cols]="2">
+    <mat-grid-list [cols]="2" rowHeight="1:2">
       <mat-grid-tile>
-        <app-document-editor></app-document-editor>
+        <app-document-editor id="editor" [selectedDocument]="selectedDocument" ></app-document-editor>
       </mat-grid-tile>
-      <mat-divider [vertical]="true"></mat-divider>
       <mat-grid-tile>
-        <app-document-preview></app-document-preview>
+        <app-document-preview id="preview" [changedDocument]="selectedDocument"></app-document-preview>
       </mat-grid-tile>
     </mat-grid-list>
   </mat-sidenav-content>
