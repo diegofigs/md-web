@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { DocumentService } from '../../services/document.service';
 import { MatDialog } from '@angular/material';
 import {DocumentCreateDialogComponent} from '../document-create-dialog/document-create-dialog.component';
+import 'rxjs/add/operator/take';
 
 
 @Component({
@@ -12,27 +13,39 @@ import {DocumentCreateDialogComponent} from '../document-create-dialog/document-
 export class DocumentListComponent implements OnInit {
 
   documents: any;
-  newDocument: any;
+  @Output() onSelect = new EventEmitter<any>();
   constructor(public dialog: MatDialog, public documentService: DocumentService) { }
 
   ngOnInit() {
-    this.documentService.documents.subscribe(documents => {
+    this.getDocuments();
+  }
+
+  getDocuments() {
+    this.documentService.documents.take(1).subscribe(documents => {
       this.documents = documents;
     });
-    this.newDocument = {name: '', contents: ' '};
   }
 
   showCreateDialog() {
+    const newDocument = {name: '', contents: ' '};
     const dialogRef = this.dialog.open(DocumentCreateDialogComponent, {
       width: '250px',
-      data: this.newDocument
+      data: newDocument
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.documentService.createDocument(result)
-        .subscribe(document => {
-          console.log(document);
-        });
+    dialogRef.afterClosed().subscribe(name => {
+      if (name) {
+        newDocument.name = name;
+        this.documentService.createDocument(newDocument)
+          .subscribe(document => {
+            this.selectDocument(document);
+            this.getDocuments();
+          });
+      }
     });
+  }
+
+  selectDocument(document) {
+    this.onSelect.emit(document);
   }
 }
