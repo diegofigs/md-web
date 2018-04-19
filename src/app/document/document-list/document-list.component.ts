@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { DocumentService } from '../../services/document.service';
 import { MatDialog } from '@angular/material';
 import {DocumentCreateDialogComponent} from '../document-create-dialog/document-create-dialog.component';
@@ -13,7 +13,7 @@ import 'rxjs/add/operator/take';
 export class DocumentListComponent implements OnInit {
 
   documents: any;
-  @Output() onSelect = new EventEmitter<any>();
+  @Output('documentSelect') documentSelect = new EventEmitter<any>();
   constructor(public dialog: MatDialog, public documentService: DocumentService) { }
 
   ngOnInit() {
@@ -46,6 +46,6 @@ export class DocumentListComponent implements OnInit {
   }
 
   selectDocument(document) {
-    this.onSelect.emit(document);
+    this.documentSelect.emit(document);
   }
 }
