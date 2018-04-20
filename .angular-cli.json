@@ -25,7 +25,10 @@
       "scripts": [
         "../node_modules/marked/lib/marked.js",
         "../node_modules/prismjs/prism.js",
-        "../node_modules/prismjs/components/prism-css.min.js"
+        "../node_modules/prismjs/components/prism-css.min.js",
+        "../node_modules/prismjs/components/prism-ruby.min.js",
+        "../node_modules/prismjs/components/prism-php.min.js",
+        "../node_modules/prismjs/components/prism-python.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
