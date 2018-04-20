@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { DocumentService } from '../../services/document.service';
 import { MatDialog } from '@angular/material';
 import {DocumentCreateDialogComponent} from '../document-create-dialog/document-create-dialog.component';
@@ -12,20 +12,16 @@ import 'rxjs/add/operator/take';
 })
 export class DocumentListComponent implements OnInit {
 
-  documents: any;
+  @Input('documents') documents: any;
+  @Input('selectedDocument') selectedDocument: any;
   @Output('documentSelect') documentSelect = new EventEmitter<any>();
   constructor(public dialog: MatDialog, public documentService: DocumentService) { }
 
-  ngOnInit() {
-    this.getDocuments();
-  }
+  ngOnInit() {}
 
-  getDocuments() {
-    this.documentService.documents.take(1).subscribe(documents => {
-      this.documents = documents;
-    });
-  }
-
+  /**
+   * Function for displaying document creation dialog.
+   */
   showCreateDialog() {
     const newDocument = {name: '', contents: ' '};
     const dialogRef = this.dialog.open(DocumentCreateDialogComponent, {
@@ -37,15 +33,20 @@ export class DocumentListComponent implements OnInit {
       if (name) {
         newDocument.name = name;
         this.documentService.createDocument(newDocument)
+          .take(1)
           .subscribe(document => {
             this.selectDocument(document);
-            this.getDocuments();
           });
       }
     });
   }
 
+  /**
+   * Function for selecting a document to edit from the list.
+   * @param document
+   */
   selectDocument(document) {
+    this.selectedDocument = document;
     this.documentSelect.emit(document);
   }
 }

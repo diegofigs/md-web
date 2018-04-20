@@ -5,7 +5,8 @@
   </button>
 </div>
 <mat-nav-list>
-  <a mat-list-item *ngFor="let doc of documents" (click)="selectDocument(doc)">
+  <a mat-list-item *ngFor="let doc of documents" (click)="selectDocument(doc)"
+    [ngClass]="{'active': selectedDocument && doc._id === selectedDocument._id}">
     {{ doc.name }}
   </a>
 </mat-nav-list>
