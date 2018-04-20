@@ -12,7 +12,11 @@ import { AppComponent } from './app.component';
 import { DocumentModule } from './document/document.module';
 import { ServicesModule } from './services/services.module';
 
-
+/**
+ * Variable in charge of keeping a record of application paths.
+ * Not used since very small project scope and functionality.
+ * @type {({path: string; component: AppComponent} | {path: string; redirectTo: string; pathMatch: string})[]}
+ */
 const appRoutes: Routes = [
   { path: 'documents', component: AppComponent },
   { path: '',   redirectTo: '/documents', pathMatch: 'full' },
