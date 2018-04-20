@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/debounceTime';
+import {DocumentService} from '../../services/document.service';
 
 @Component({
   selector: 'app-document-editor',
@@ -10,9 +11,46 @@ import 'rxjs/add/operator/debounceTime';
 export class DocumentEditorComponent implements OnInit {
 
   @Input('selectedDocument') selectedDocument: any;
-  constructor() {}
+  @Output('documentSaved') documentSaved = new EventEmitter<any>();
+  constructor(public documentService: DocumentService) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  /**
+   * Function that calls DocumentService to update the selected doc.
+   * @return {Subscription}
+   */
+  requestUpdate() {
+    return this.documentService.updateDocument(this.selectedDocument)
+      .take(1)
+      .subscribe((updatedDocument) => {
+        this.selectedDocument = updatedDocument;
+        this.documentSaved.emit(updatedDocument);
+      });
   }
 
+  /**
+   * Function that calls DocumentService to save the selected doc.
+   * @return {Subscription}
+   */
+  requestSave() {
+    return this.documentService.createDocument(this.selectedDocument)
+      .take(1)
+      .subscribe((updatedDocument) => {
+        this.selectedDocument = updatedDocument;
+        this.documentSaved.emit(updatedDocument);
+      });
+  }
+
+  /**
+   * Function that calls DocumentService to delete the selected doc.
+   * @return {Subscription}
+   */
+  requestDelete() {
+    return this.documentService.deleteDocument(this.selectedDocument._id)
+      .subscribe((deletedDocument) => {
+        this.selectedDocument = {};
+        this.documentSaved.emit(deletedDocument);
+      });
+  }
 }

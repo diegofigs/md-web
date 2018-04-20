@@ -1,9 +1,25 @@
-<h2>Document Editor</h2>
-<mat-form-field>
-  <input matInput placeholder="Name of Document" [(ngModel)]="selectedDocument.name">
-</mat-form-field>
-<textarea matInput placeholder="Place your markdown here"
-          matTextareaAutosize
-          matAutosizeMinRows="4"
-          matAutosizeMaxRows="16"
-          [(ngModel)]="selectedDocument.contents"></textarea>
+<div class="row-container">
+  <h2>Document Editor</h2>
+  <button mat-raised-button color="accent"
+          *ngIf="selectedDocument && selectedDocument._id === null"
+          (click)="requestSave()">Save</button>
+  <button mat-raised-button color="accent"
+          *ngIf="selectedDocument && selectedDocument._id !== null"
+          (click)="requestUpdate()">Update</button>
+  <button mat-raised-button color="accent"
+          *ngIf="selectedDocument && selectedDocument._id !== null"
+          (click)="requestDelete()">Delete</button>
+
+</div>
+<div class="column-container">
+  <mat-form-field>
+    <input matInput placeholder="Name of Document" [(ngModel)]="selectedDocument.name">
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput placeholder="Place your markdown here"
+              matTextareaAutosize
+              matAutosizeMinRows="4"
+              matAutosizeMaxRows="16"
+              [(ngModel)]="selectedDocument.contents"></textarea>
+  </mat-form-field>
+</div>
