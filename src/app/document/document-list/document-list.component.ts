@@ -15,6 +15,7 @@ export class DocumentListComponent implements OnInit {
   @Input('documents') documents: any;
   @Input('selectedDocument') selectedDocument: any;
   @Output('documentSelect') documentSelect = new EventEmitter<any>();
+  @Output('documentCreated') documentCreated = new EventEmitter<any>();
   constructor(public dialog: MatDialog, public documentService: DocumentService) { }
 
   ngOnInit() {}
@@ -36,6 +37,7 @@ export class DocumentListComponent implements OnInit {
           .take(1)
           .subscribe(document => {
             this.selectDocument(document);
+            this.documentCreated.emit(document);
           });
       }
     });

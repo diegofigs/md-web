@@ -1,7 +1,9 @@
 <mat-toolbar color="primary">{{ title }}</mat-toolbar>
 <mat-sidenav-container>
   <mat-sidenav mode="side" opened class="mat-elevation-z2">
-    <app-document-list [documents]="documents" [selectedDocument]="selectedDocument" (documentSelect)="passDocumentToEditor($event)"></app-document-list>
+    <app-document-list [documents]="documents" [selectedDocument]="selectedDocument"
+                       (documentSelect)="passDocumentToEditor($event)"
+                       (documentCreated)="getDocuments()"></app-document-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-grid-list [cols]="2" rowHeight="1:2">
